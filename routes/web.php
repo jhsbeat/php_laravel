@@ -12,7 +12,10 @@
 */
 
 Route::get('/', ['as'=>'home', function () {
-    return view('welcome');
+    return view('welcome')->with([
+        'name'=> 'Foo',
+        'greeting'=> '안녕하세요?'
+    ]);
 }]);
 
 Route::get('/home', function(){
