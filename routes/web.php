@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/', ['as'=>'home', function () {
     return view('welcome');
+}]);
+
+Route::get('/home', function(){
+   return redirect(route('home'));
 });
