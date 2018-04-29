@@ -12,10 +12,9 @@
 */
 
 Route::get('/', ['as'=>'home', function () {
-    return view('welcome')->with([
-        'name'=> 'Foo',
-        'greeting'=> '안녕하세요?'
-    ]);
+    $items = ['apple', 'banana', 'tomato'];
+
+    return view('welcome', ['items' => $items]);
 }]);
 
 Route::get('/home', function(){
