@@ -11,12 +11,6 @@
 |
 */
 
-Route::get('/', ['as'=>'home', function () {
-    $items = ['apple', 'banana', 'tomato'];
+Route::get('/', 'WelcomeController@index');
 
-    return view('welcome', ['items' => $items]);
-}]);
-
-Route::get('/home', function(){
-   return redirect(route('home'));
-});
+Route::resource('articles', 'ArticlesController');
