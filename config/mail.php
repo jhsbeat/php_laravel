@@ -120,4 +120,8 @@ return [
         ],
     ],
 
+    'to' => [
+        'address' => 'yours@domain',
+        'name' => 'Tester'
+    ]
 ];
