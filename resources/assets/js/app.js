@@ -5,6 +5,8 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+hljs.initHighlightingOnLoad();
+
 require('./bootstrap');
 
 window.Vue = require('vue');
