@@ -13,20 +13,52 @@
 
 Route::get('/', 'WelcomeController@index');
 
+// Auth
+Route::get('auth/register', [
+    'as' => 'users.create',
+    'uses' => 'UsersController@create'
+]);
+Route::post('auth/register', [
+    'as' => 'users.store',
+    'uses' => 'UsersController@store'
+]);
+Route::get('auth/confirm/{code}', [
+    'as' => 'users.confirm',
+    'uses' => 'UsersController@confirm'
+])->where('code', '[\pL-\pN]{60}');
+/* 사용자 인증 */
+Route::get('auth/login', [
+    'as' => 'sessions.create',
+    'uses' => 'SessionsController@create'
+]);
+Route::post('auth/login', [
+    'as' => 'sessions.store',
+    'uses' => 'SessionsController@store'
+]);
+Route::get('auth/logout', [
+    'as' => 'sessions.destroy',
+    'uses' => 'SessionsController@destroy'
+]);
+/* 비밀번호 초기화 */
+Route::get('auth/remind', [
+    'as' => 'remind.create',
+    'uses' => 'PasswordsController@getRemind'
+]);
+Route::post('auth/remind', [
+    'as' => 'remind.store',
+    'uses' => 'PasswordsController@postRemind'
+]);
+Route::get('auth/reset/{token}', [
+    'as' => 'reset.create',
+    'uses' => 'PasswordsController@getReset'
+])->where('token', '[\pL-\pN]{64}');
+Route::post('auth/reset', [
+    'as' => 'reset.store',
+    'uses' => 'PasswordsController@postReset'
+]);
+
+
 Route::resource('articles', 'ArticlesController');
-
-Route::get('auth/login', function(){
-    $credentials = [
-      'email' => 'john@example.com',
-      'password' => 'password'
-    ];
-
-    if(!auth()->attempt($credentials)){
-        return '로그인 정보가 정확하지 않습니다.';
-    }
-
-    return redirect('protected');
-});
 
 Route::get('protected', ['middleware' => 'auth', function(){
    dump(session()->all());
@@ -36,12 +68,6 @@ Route::get('protected', ['middleware' => 'auth', function(){
    }
    return '어서 오세요' . auth()->user()->name;
 }]);
-
-Route::get('auth/logout', function(){
-   auth()->logout();
-   return '또 봐요~';
-});
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 

@@ -121,7 +121,7 @@ return [
     ],
 
     'to' => [
-        'address' => 'yours@domain',
+        'address' => 'biogeekkorea@gmail.com',
         'name' => 'Tester'
     ]
 ];
