@@ -21,12 +21,12 @@ class SessionsController extends Controller
         ]);
 
         if(!auth()->attempt($request->only('email', 'password'), $request->has('remember'))){
-            return respondError('이메일 또는 비밀번호가 맞지 않습니다.');
+            return $this->respondError('이메일 또는 비밀번호가 맞지 않습니다.');
         }
 
         if(!auth()->user()->activated){
             auth()->logout();
-            return respondError('가입을 확인해주세요.');
+            return $this->respondError('가입을 확인해주세요.');
         }
 
         flash(auth()->user()->name . '님. 환영합니다.');

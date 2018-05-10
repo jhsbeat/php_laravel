@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +38,8 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        $article = new \App\Article;
+        return view('articles.create', compact('article'));
     }
 
     /**
@@ -45,7 +50,8 @@ class ArticlesController extends Controller
      */
     public function store(\App\Http\Requests\ArticlesRequest $request)
     {
-        $article = auth()->user()->articles()->create($request->all());
+//        $article = auth()->user()->articles()->create($request->all());
+        $article = $request->user()->articles()->create($request->all());
         if(!$article){
             return back()->with('flash_message', '글이 저장되지 않았습니다.')->withInput();
         }
@@ -61,10 +67,10 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(\App\Article $article)
     {
-        $article = \App\Article::with('user')->findOrFail($id);
-        debug($article->toArray());
+//        $article = \App\Article::with('user')->findOrFail($id); // Route-model binding을 사용하였기 때문에 필요없음.
+//        debug($article->toArray());
         return view('articles.show', compact('article'));
     }
 
@@ -74,9 +80,10 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(\App\Article $article)
     {
-        return __METHOD__ . '은(는) 다음 기본 키를 가진 Article 모델을 수정하기 위한 폼을 담은 뷰를 반환합니다.:'.$id;
+        $this->authorize('update', $article);
+        return view('articles.edit', compact('article'));
     }
 
     /**
@@ -86,9 +93,13 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(\App\Http\Requests\ArticlesRequest $request, \App\Article $article)
     {
-        return __METHOD__ . '은(는) 다음 기본 키를 가진 Article 모델을 수정합니다.:'.$id;
+        $this->authorize('update', $article);
+        $article->update($request->all());
+        flash()->success('수정하신 내용을 저장했습니다.');
+
+        return redirect(route('articles.show', $article->id));
     }
 
     /**
@@ -97,8 +108,13 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(\App\Article $article)
     {
-        return __METHOD__ . '은(는) 다음 기본 키를 가진 Article 모델을 삭제합니다.:'.$id;
+        debug('a@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 11111111');
+        $this->authorize('delete', $article);
+        debug('a@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        $article->delete();
+        debug('a@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 222');
+        return response()->json([], 204);
     }
 }

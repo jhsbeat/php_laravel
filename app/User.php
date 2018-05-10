@@ -32,4 +32,8 @@ class User extends Authenticatable
     public function articles(){
         return $this->hasMany(Article::class);
     }
+
+    public function isAdmin(){
+        return ($this->email === 'test001@gmail.com') ? true : false;
+    }
 }

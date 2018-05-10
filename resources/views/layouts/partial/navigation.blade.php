@@ -15,6 +15,8 @@
 
       <!-- Right Side Of Navbar -->
       <ul class="navbar-nav ml-auto">
+        <li><a class="nav-link" href="{{ route('articles.index') }}">포럼</a></li>
+
         <!-- Authentication Links -->
         @guest
           <li><a class="nav-link" href="{{ route('sessions.create') }}">{{ __('Login') }}</a></li>
