@@ -44,12 +44,17 @@ class ArticlesController extends Controller
      */
     public function store(\App\Http\Requests\ArticlesRequest $request)
     {
-//        $article = auth()->user()->articles()->create($request->all());
         $article = $request->user()->articles()->create($request->all());
         if(!$article){
             return back()->with('flash_message', '글이 저장되지 않았습니다.')->withInput();
         }
         $article->tags()->sync($request->input('tags'));
+
+        // 첨부파일 연결
+        $request->getAttachments()->each(function ($attachment) use ($article) {
+            $attachment->article()->associate($article);
+            $attachment->save();
+        });
 
         event(new \App\Events\ArticlesEvent($article));
 

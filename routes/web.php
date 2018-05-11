@@ -65,6 +65,8 @@ Route::get('tags/{slug}/articles', [
    'uses' => 'ArticlesController@index'
 ]);
 
+Route::resource('attachments', 'AttachmentsController', ['only' => ['store', 'destroy']]);
+
 Route::get('protected', ['middleware' => 'auth', function(){
    dump(session()->all());
 

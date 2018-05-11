@@ -8,7 +8,8 @@ elixir(mix => {
         '../../../node_modules/highlightjs/highlight.pack.js',
         '../../../node_modules/jquery/dist/jquery.js',
         '../../../public/js/app.js',
-        '../../../node_modules/select2/dist/js/select2.js'
+        '../../../node_modules/select2/dist/js/select2.js',
+        '../../../node_modules/dropzone/dist/dropzone.js'
     ], 'public/js/app.js');
     mix.version([
         'css/app.css',

@@ -2,10 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Attachment;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ArticlesRequest extends FormRequest
 {
+    protected $dontFlash = ['files'];
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -27,6 +30,8 @@ class ArticlesRequest extends FormRequest
             'title' => ['required'],
             'content' => ['required', 'min:10'],
             'tags' => ['required', 'array'], // 'tags' => 'required|array'와 같음
+            'files' => ['array'],
+            'files.*' => ['mimes:jpg,png,zip,tar', 'max:30000'], // 30,000 KB
         ];
     }
 
@@ -42,5 +47,13 @@ class ArticlesRequest extends FormRequest
             'title' => '제목',
             'content' => '본문'
         ];
+    }
+
+    public function getAttachments()
+    {
+        return Attachment::whereIn(
+            'id',
+            $this->input('attachments', [])
+        )->get();
     }
 }

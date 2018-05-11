@@ -8,5 +8,11 @@ return [
         'general' => '자유의견',
         'server' => '서버',
         'tip' => '팁',
-    ]
+    ],
+    'mimes' => [
+        'png',
+        'jpg',
+        'zip',
+        'tar',
+    ],
 ];

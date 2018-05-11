@@ -33,3 +33,8 @@ $factory->define(App\Article::class, function (Faker $faker) {
     ];
 });
 
+$factory->define(App\Attachment::class, function(Faker\Generator $faker){
+  return [
+      'filename' => sprintf("%s.%s", str_random(), $faker->randomElement(['jpg', 'png', 'zip', 'tag']))
+  ];
+});
