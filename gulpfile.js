@@ -6,7 +6,9 @@ elixir(mix => {
     mix.webpack('app.js');
     mix.scripts([
         '../../../node_modules/highlightjs/highlight.pack.js',
-        '../../../public/js/app.js'
+        '../../../node_modules/jquery/dist/jquery.js',
+        '../../../public/js/app.js',
+        '../../../node_modules/select2/dist/js/select2.js'
     ], 'public/js/app.js');
     mix.version([
         'css/app.css',

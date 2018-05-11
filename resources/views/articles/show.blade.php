@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+  @php $viewName = 'articles.show'; @endphp
   <div class="page-header">
     <h4>포럼<small> / {{ $article->title }}</small></h4>
   </div>
@@ -9,6 +10,7 @@
     @include('articles.partial.article', compact('article'))
 
     <p>{!! markdown($article->content) !!}</p>
+    @include('tags.partial.list', ['tags' => $article->tags])
   </article>
 
   <div class="text-center action__aticle">

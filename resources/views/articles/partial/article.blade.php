@@ -11,5 +11,9 @@
       <i class="fa fa-user"></i> {{ $article->user->name }}
       <i class="fa fa-clock-o"></i> {{ $article->created_at->diffForHumans() }}
     </p>
+
+    @if($viewName === 'articles.index')
+      @include('tags.partial.list', ['tags' => $article->tags])
+    @endif
   </div>
 </div>

@@ -60,6 +60,11 @@ Route::post('auth/reset', [
 
 Route::resource('articles', 'ArticlesController');
 
+Route::get('tags/{slug}/articles', [
+   'as' => 'tags.articles.index',
+   'uses' => 'ArticlesController@index'
+]);
+
 Route::get('protected', ['middleware' => 'auth', function(){
    dump(session()->all());
 
