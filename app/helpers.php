@@ -32,3 +32,7 @@ function format_filesize($bytes){
 
     return round($bytes, 2) . $suffix[$step];
 }
+
+function is_api_domain(){
+    return starts_with(request()->getHttpHost(), config('project.api_domain'));
+}

@@ -163,6 +163,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
 
         Laracasts\Flash\FlashServiceProvider::class,
+//        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
     ],
 
@@ -214,6 +215,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Flash' => Laracasts\Flash\Flash::class,
+//        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+//        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
 
     ],
 

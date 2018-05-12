@@ -30,5 +30,11 @@ Route::group(['domain' => config('project.api_domain'), 'namespace' => 'Api', 'a
 
         Route::resource('attachments', 'AttachmentsController', ['only' => ['store', 'destroy']]);
         Route::resource('articles.attachments', 'AttachmentsController', ['only' => 'index']);
+
+        /* 토큰 교환 요청(로그인) */
+        Route::post('auth/login', [
+            'as' => 'sessions.store',
+            'uses' => 'SessionsController@store',
+        ]);
     });
 });

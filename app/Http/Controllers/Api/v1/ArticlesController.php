@@ -7,6 +7,7 @@ use App\Http\Controllers\ArticlesController as ParentController;
 class ArticlesController extends ParentController
 {
     public function __construct(){
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'tags']]);
     }
 
     public function tags(){

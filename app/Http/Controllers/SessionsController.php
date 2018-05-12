@@ -20,7 +20,11 @@ class SessionsController extends Controller
            'password' => 'required|min:6'
         ]);
 
-        if(!auth()->attempt($request->only('email', 'password'), $request->has('remember'))){
+        $token = is_api_domain()
+            ? \Illuminate\Support\Facades\Auth::guard()->attempt($request->only('email', 'password'))
+            : auth()->attempt($request->only('email', 'password'), $request->has('remember'));
+
+        if(!$token){
             return $this->respondError('이메일 또는 비밀번호가 맞지 않습니다.');
         }
 
@@ -31,6 +35,10 @@ class SessionsController extends Controller
 
         flash(auth()->user()->name . '님. 환영합니다.');
 
+        return $this->respondCreated($token);
+    }
+
+    protected function respondCreated($token){
         return redirect()->intended('home');
     }
 
