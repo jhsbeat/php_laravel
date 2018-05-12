@@ -22,6 +22,10 @@ class ArticlesController extends Controller
         // Pagination
         $articles = $query->latest()->paginate(3);
 
+        return $this->respondCollection($articles);
+    }
+
+    protected function respondCollection(\Illuminate\Contracts\Pagination\LengthAwarePaginator $articles){
         return view('articles.index', compact('articles'));
     }
 
@@ -58,7 +62,13 @@ class ArticlesController extends Controller
 
         event(new \App\Events\ArticlesEvent($article));
 
-        return redirect(route('articles.index'))->with('flash_message', '작성하신 글이 저장되었습니다.');
+        return $this->respondCreated($article);
+    }
+
+    protected function respondCreated(\App\Article $article){
+        flash()->success('작성하신 글이 저장되었습니다.');
+
+        return redirect(route('articles.show', $article->id));
     }
 
     /**
@@ -111,11 +121,9 @@ class ArticlesController extends Controller
      */
     public function destroy(\App\Article $article)
     {
-        debug('a@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 11111111');
         $this->authorize('delete', $article);
-        debug('a@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
         $article->delete();
-        debug('a@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 222');
         return response()->json([], 204);
     }
+
 }
