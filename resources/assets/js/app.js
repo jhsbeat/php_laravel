@@ -5,11 +5,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-hljs.initHighlightingOnLoad();
+// hljs.initHighlightingOnLoad();
 
 require('./bootstrap');
 
-// window.Vue = require('vue');
+window.Vue = require('vue');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -18,7 +18,10 @@ require('./bootstrap');
  */
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
-//
-// const app = new Vue({
-//     el: '#app'
-// });
+Vue.component('signatures', require('./components/Signatures.vue'));
+Vue.component('signature-form', require('./components/SignatureForm.vue'));
+Vue.component('paginate', require('vuejs-paginate'));
+
+const app = new Vue({
+    el: '#app'
+});

@@ -71,6 +71,9 @@ class DatabaseSeeder extends Seeder
             }
         });
 
+        App\Signature::truncate();
+        factory(App\Signature::class, 100)->create();
+
         if(config('database.default') !== 'sqlite'){
             DB::statement('SET FOREIGN_KEY_CHECKS=1');
         }

@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'SignatureController@index')->name('home');
+Route::get('sign', 'SignatureController@create')->name('sign');
 
 // Auth
 Route::get('auth/register', [
@@ -76,7 +77,7 @@ Route::get('protected', ['middleware' => 'auth', function(){
    return '어서 오세요' . auth()->user()->name;
 }]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('mail', function(){
     $article = App\Article::with('user')->find(1);

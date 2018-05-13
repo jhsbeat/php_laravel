@@ -36,5 +36,9 @@ Route::group(['domain' => config('project.api_domain'), 'namespace' => 'Api', 'a
             'as' => 'sessions.store',
             'uses' => 'SessionsController@store',
         ]);
+
+        Route::resource('signatures', 'SignatureController')->only(['index', 'store', 'show']);
+        Route::put('signatures/{signature}/report', 'ReportSignature@update');
+
     });
 });
