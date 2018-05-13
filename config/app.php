@@ -164,6 +164,7 @@ return [
 
         Laracasts\Flash\FlashServiceProvider::class,
 //        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        Appkr\Api\ApiServiceProvider::class,
 
     ],
 

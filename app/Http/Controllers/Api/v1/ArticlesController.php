@@ -16,7 +16,9 @@ class ArticlesController extends ParentController
 
     protected function respondCollection(\Illuminate\Contracts\Pagination\LengthAwarePaginator $articles)
     {
-        return $articles->toJson(JSON_PRETTY_PRINT);
+//        return $articles->toJson(JSON_PRETTY_PRINT);
+//        return (new \App\Transformers\ArticleTransformerBasic)->withPagination($articles);
+        return json()->withPagination($articles, new \App\Transformers\ArticleTransformer);
     }
 
     protected function respondCreated(\App\Article $article)
@@ -25,5 +27,9 @@ class ArticlesController extends ParentController
         return response()->json([
             'success' => 'created'
         ], 201, ['Location' => route('api.v1.articles.show', $article->id)], JSON_PRETTY_PRINT);
+    }
+
+    protected function respondInstance(\App\Article $article){
+        return (new \App\Transformers\ArticleTransformerBasic)->withItem($article);
     }
 }
