@@ -83,6 +83,10 @@ class ArticlesController extends Controller
     {
 //        $article = \App\Article::with('user')->findOrFail($id); // Route-model binding을 사용하였기 때문에 필요없음.
 //        debug($article->toArray());
+        return $this->respondInstance($article);
+    }
+
+    protected function respondInstance(\App\Article $article){
         return view('articles.show', compact('article'));
     }
 

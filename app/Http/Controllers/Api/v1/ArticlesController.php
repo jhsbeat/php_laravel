@@ -36,7 +36,7 @@ class ArticlesController extends ParentController implements \App\Http\Controlle
     }
 
     protected function respondInstance(\App\Article $article){
-        return (new \App\Transformers\ArticleTransformerBasic)->withItem($article);
+        return json()->withItem($article, new \App\Transformers\ArticleTransformer);
     }
 
     /**

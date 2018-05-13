@@ -55,3 +55,12 @@ if (! function_exists('cache_key')) {
         return md5($key);
     }
 }
+
+function optimus($id=null)
+{
+    $factory = app('optimus');
+    if(func_num_args() === 0){
+        return $factory;
+    }
+    return $factory->encode($id);
+}
