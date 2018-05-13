@@ -17,15 +17,17 @@ class ArticlesController extends Controller
      */
     public function index($slug = null)
     {
+        $cacheKey = cache_key('articles.index');
+
         $query = $slug ? \App\Tag::whereSlug($slug)->firstOrFail()->articles() : new \App\Article;
 
         // Pagination
         $articles = $query->latest()->paginate(3);
 
-        return $this->respondCollection($articles);
+        return $this->respondCollection($articles, $cacheKey);
     }
 
-    protected function respondCollection(\Illuminate\Contracts\Pagination\LengthAwarePaginator $articles){
+    protected function respondCollection(\Illuminate\Contracts\Pagination\LengthAwarePaginator $articles, $cacheKey){
         return view('articles.index', compact('articles'));
     }
 

@@ -16,4 +16,5 @@ return [
         'tar',
     ],
     'api_domain' => env('API_DOMAIN', 'api.myapp.local'),
+    'etag' => true,
 ];

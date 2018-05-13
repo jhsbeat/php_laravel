@@ -36,3 +36,22 @@ function format_filesize($bytes){
 function is_api_domain(){
     return starts_with(request()->getHttpHost(), config('project.api_domain'));
 }
+
+if (! function_exists('cache_key')) {
+    /**
+     * Generate key for caching.
+     *
+     * Note that, even though the request endpoints are the same
+     *     the response body may be different because of the query string.
+     *
+     * @param $base
+     * @return string
+     */
+    function cache_key($base)
+    {
+        $key = ($query = request()->getQueryString())
+            ? $base . '.' . urlencode($query)
+            : $base;
+        return md5($key);
+    }
+}

@@ -10,4 +10,18 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+//    /**
+//     * @var \Illuminate\Cache\CacheManager
+//     */
+//    protected $cache;
+//    /**
+//     * Controller constructor.
+//     */
+//    public function __construct() {
+//        $this->cache = app('cache');
+//        if ((new \ReflectionClass($this))->implementsInterface(Cacheable::class) and taggable()) {
+//            $this->cache = app('cache')->tags($this->cacheTags());
+//        }
+//    }
 }
